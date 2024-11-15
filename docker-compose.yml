@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000" 
+      - '3000:3000'
     environment:
       - PORT=3000
       - NODE_ENV=development
@@ -12,20 +12,37 @@ services:
       - ./src:/usr/src/app/src
     depends_on:
       - postgres_db
-
+    restart: unless-stopped
 
   postgres_db:
-    image: postgres   
-    restart: always
+    image: postgres:alpine3.18
+    restart: unless-stopped
     ports:
       - 5432:5432
     environment:
-      POSTGRES_PASSWORD: postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data:delegated
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   dbadmin:
-    image: dpage/pgadmin4 
-    restart: always
+    image: dpage/pgadmin4
+    restart: unless-stopped
     ports:
       - 5050:80
     environment:
       PGADMIN_DEFAULT_EMAIL: amdin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: pgadmin4    
+      PGADMIN_DEFAULT_PASSWORD: pgadmin4
+    depends_on:
+      - postgres_db
+
+volumes:
+  postgres_data:
+    driver: local
+    name: postgres_data
