@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, Length, Matches } from 'class-validator';
 import { UserLogInDto } from './user-login.dto';
 
 export class UserSignUpDto extends UserLogInDto{
@@ -7,8 +7,17 @@ export class UserSignUpDto extends UserLogInDto{
   firstName:string;
 
   @IsNotEmpty({message:'Name can not be null'})
+
   @IsString({message:'Name should be string'})
   lastName:string;
+
+  @IsNotEmpty({message:'Name can not be null'})
+  @IsString({message:'Name should be string'})
+  Username:string;
+
+  @IsNotEmpty()
+  @IsString()
+  confirmPassword: string;
 }
 
 
