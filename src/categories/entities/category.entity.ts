@@ -1,3 +1,4 @@
+import { CourseEntity } from "src/courses/entities/course.entity";
 import { UserEntity } from "src/users/entities/user.entity";
 import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
 
@@ -13,7 +14,11 @@ export class CategoryEntity {
     createdAt:Timestamp;
     @UpdateDateColumn()
     updateAt:Timestamp;
+    
     @ManyToOne(()=>UserEntity,(user)=>user.categories)
     addedBy:UserEntity;
+    
+    @OneToMany(()=>CourseEntity,(course)=>course.category)
+    courses:CourseEntity[]; 
 }
 
