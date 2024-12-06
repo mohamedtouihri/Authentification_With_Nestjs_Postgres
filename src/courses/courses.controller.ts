@@ -7,6 +7,7 @@ import { AuthorizeGuard } from 'src/utility/guards/authorization.guard';
 import { Roles } from 'src/utility/common/user-roles.enum';
 import { CurrentUser } from 'src/utility/decorators/current-user.decorator';
 import { UserEntity } from 'src/users/entities/user.entity';
+import { CourseEntity } from './entities/course.entity';
 
 @Controller('courses')
 export class CoursesController {
@@ -14,23 +15,27 @@ export class CoursesController {
 
   @UseGuards(AuthenticationGuard,AuthorizeGuard([Roles.ADMIN]))
   @Post()
-  async create(@Body() createCourseDto: CreateCourseDto,@CurrentUser() currentUser:UserEntity) {
+  async create(
+    @Body() createCourseDto: CreateCourseDto,
+    @CurrentUser() currentUser:UserEntity):Promise<CourseEntity> {
     return await this.coursesService.create(createCourseDto,currentUser);
   }
 
   @Get()
-  findAll() {
-    return this.coursesService.findAll();
+  async findAll():Promise<CourseEntity[]> {
+    return await this.coursesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.coursesService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.coursesService.findOne(+id);
   }
 
+  @UseGuards(AuthenticationGuard,AuthorizeGuard([Roles.ADMIN]))
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
-    return this.coursesService.update(+id, updateCourseDto);
+  async update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto,@CurrentUser()
+   currentUser:UserEntity):Promise<CourseEntity> {
+    return await this.coursesService.update(+id, updateCourseDto, currentUser);
   }
 
   @Delete(':id')

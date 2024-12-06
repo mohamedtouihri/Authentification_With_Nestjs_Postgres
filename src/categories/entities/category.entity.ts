@@ -14,10 +14,8 @@ export class CategoryEntity {
     createdAt:Timestamp;
     @UpdateDateColumn()
     updateAt:Timestamp;
-    
     @ManyToOne(()=>UserEntity,(user)=>user.categories)
     addedBy:UserEntity;
-    
     @OneToMany(()=>CourseEntity,(course)=>course.category)
     courses:CourseEntity[]; 
 }

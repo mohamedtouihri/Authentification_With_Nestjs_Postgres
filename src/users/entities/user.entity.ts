@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Ti
 import { Roles } from 'src/utility/common/user-roles.enum';
 import { CategoryEntity } from 'src/categories/entities/category.entity';
 import { CourseEntity } from 'src/courses/entities/course.entity';
+import { ReviewEntity } from 'src/reviews/entities/review.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -23,8 +24,13 @@ export class UserEntity {
   createAt:Timestamp;
   @UpdateDateColumn()
   updateAt:Timestamp;
+
   @OneToMany(()=>CategoryEntity,(cat)=>cat.addedBy)
   categories:CategoryEntity[]; 
+
   @OneToMany(()=>CourseEntity,(course)=>course.addedBy)
-  courses:CourseEntity[]; 
+  courses:CourseEntity[];
+
+  @OneToMany(()=>ReviewEntity,(rev)=>rev.user)
+  reviews:ReviewEntity[];
 }

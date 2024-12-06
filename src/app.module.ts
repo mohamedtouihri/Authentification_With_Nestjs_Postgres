@@ -5,9 +5,10 @@ import { DataSourceOption } from 'db/Data-Source';
 import { CurrentUserMiddleware } from './utility/middlewares/current-user.middleware';
 import { CategoriesModule } from './categories/categories.module';
 import { CoursesModule } from './courses/courses.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(DataSourceOption),UsersModule, CategoriesModule, CoursesModule],
+  imports: [TypeOrmModule.forRoot(DataSourceOption),UsersModule, CategoriesModule, CoursesModule, ReviewsModule],
   controllers: [],
   providers: [],
 })
