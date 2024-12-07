@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsEmail, MinLength, IsString, Matches } from 'class-validator';
+import { IsNotEmpty, IsEmail, IsString, Matches } from 'class-validator';
 
 export class UserLogInDto{
   @IsNotEmpty({message:'Email can not be empty.'})
@@ -7,6 +7,9 @@ export class UserLogInDto{
   
   @IsNotEmpty({message:'Password can not be empty.'})
   @IsString()
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+    {message:"Must contain 8 characters, one uppercase, one lowercase, one number, and one special character"
+  })
   password: string;
 }
 
