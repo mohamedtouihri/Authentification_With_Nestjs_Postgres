@@ -16,12 +16,16 @@ export class CoursesService {
 
     const category = await this.categoryService.findOne(
       +createCourseDto.categoryId,);
-    const course = this.courseRepository.create(createCourseDto);
+    const course = this.courseRepository.create(createCourseDto);   
+    const courses = this.courseRepository.insert([
+      
+    ])
     course.category = category;
     course.addedBy=currentUser;
     return await this.courseRepository.save(course);
   }
 
+  async 
   async findAll():Promise<CourseEntity[]> {
     return this.courseRepository.find();
   }

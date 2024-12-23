@@ -6,9 +6,10 @@ import { CurrentUserMiddleware } from './utility/middlewares/current-user.middle
 import { CategoriesModule } from './categories/categories.module';
 import { CoursesModule } from './courses/courses.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(DataSourceOption),UsersModule, CategoriesModule, CoursesModule, ReviewsModule],
+  imports: [TypeOrmModule.forRoot(DataSourceOption),UsersModule, CategoriesModule, CoursesModule, ReviewsModule, SeedModule],
   controllers: [],
   providers: [],
 })

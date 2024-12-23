@@ -12,7 +12,7 @@ export class UserSignUpDto extends UserLogInDto {
 
   @IsNotEmpty({ message: 'Username cannot be null' })
   @IsString({ message: 'Username should be a string' })
-  username: string;
+  Username: string;
 
   @IsNotEmpty({ message: 'Password cannot be null' })
   @IsString({ message: 'Password should be a string' })
