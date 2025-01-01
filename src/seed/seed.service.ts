@@ -5,7 +5,8 @@ import { UpdateSeedDto } from './dto/update-seed.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-const CourseImg = ['http://localhost:3000/public/Assets/Images/CourseList/Course_Developement.png'];
+const CourseImg =
+  'http://localhost:3000/public/Assets/Images/CourseList/Course_Developement.png';
 
 /*how to serve files from server*/
 /*foler public bara mu source*/
@@ -32,39 +33,46 @@ export class SeedService {
     @InjectRepository(CourseEntity)
     private courseRepository: Repository<CourseEntity>,
   ) {}
-  
+
   async runSeed() {
     const courseCards = [
       {
+        id: 1,
         CourseName: 'IT & Software',
-        CoursePrice: '16', 
-        CourseImg: CourseImg,
+        CoursePrice: '16',
+        CourseImg: [CourseImg],
         DescriptionCourse: 'Learn Python Programming Masterclass',
         UserNumber: 211434,
       },
       {
+        id: 2,
         CourseName: 'Design',
         CoursePrice: '50',
-        CourseImg: CourseImg,
-        DescriptionCourse: 'Complete Blender Creator: Learn 3D Modelling for Beginners',
+        CourseImg: [CourseImg],
+        DescriptionCourse:
+          'Complete Blender Creator: Learn 3D Modelling for Beginners',
         UserNumber: 211434,
       },
       {
+        id: 3,
         CourseName: 'Developments',
         CoursePrice: '3',
-        CourseImg: CourseImg,
+        CourseImg: [CourseImg],
         DescriptionCourse: 'Adobe Premiere Pro CC - Advanced Training Course',
         UserNumber: 211434,
       },
       {
+        id: 4,
         CourseName: 'Marketing',
         CoursePrice: '8',
-        CourseImg: CourseImg,
-        DescriptionCourse: 'Ultimate AWS Certified Solutions Architect Associate 2021',
+        CourseImg: [CourseImg],
+        DescriptionCourse:
+          'Ultimate AWS Certified Solutions Architect Associate 2021',
         UserNumber: 211434,
       },
     ];
-    
+    await this.courseRepository.clear();
+
     for (const course of courseCards) {
       const newCourse = this.courseRepository.create({
         CourseName: course.CourseName,
